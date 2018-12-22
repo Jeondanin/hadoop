@@ -17,7 +17,7 @@ public class ConnectionHadoop {
 			public Void run() throws Exception {
 				Configuration config = new Configuration();
 				config.set("fs.defaultFS","hdfs://192.168.0.184:9000/user/bdi");
-				config.setBoolean("dfs.support.append",true);
+				config.setBoolean("dfs.support.append",true);//원래 트루 안될수도있어서 써줌. 
 				FileSystem fs = FileSystem.get(config);
 				Path upFileName = new Path("word.txt");
 				if(fs.exists(upFileName)) {

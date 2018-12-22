@@ -47,16 +47,17 @@ public class WordCount {
 	
 	public static void main(String[] args) throws Exception{
 		Configuration conf = new Configuration();
-		Job job = Job.getInstance(conf);
+		Job job = Job.getInstance(conf, "word count");
 		job.setJarByClass(WordCount.class);
 		job.setMapperClass(WCMapper.class);
+		job.setCombinerClass(WCReducer.class);
 		job.setReducerClass(WCReducer.class);
 		job.setOutputValueClass(LongWritable.class);
 		job.setInputFormatClass(TextInputFormat.class);
 		job.setOutputFormatClass(TextOutputFormat.class);
 		FileInputFormat.addInputPath(job,new Path("word.txt"));
 		FileOutputFormat.setOutputPath(job, new Path("word.log"));
-		job.waitForCompletion(true);
+		System.exit(job.waitForCompletion(true) ? 0:1);
 	}
 	
 	
